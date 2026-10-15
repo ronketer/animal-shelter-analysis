@@ -1,0 +1,30 @@
+# Local credentials and environments
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Data, derived location records and downloaded listings
+data/
+*.csv
+*.jsonl
+*.jsonl.gz
+rescuegroups_full.json
+
+# Generated artifacts and course/report material
+demo_artifacts/
+figures/
+tmp/
+milestone/
+tex/
+*.joblib
+*.pkl
+*.pickle
+*.pdf
+*.tex
+*.log
+*.aux
+*.out
