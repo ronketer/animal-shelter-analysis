@@ -4,7 +4,7 @@
 
 A completed research project by **Group 5, Hebrew University of Jerusalem**, for *A Needle in a Data Haystack* (67978).
 
-[Explore the Streamlit demo](#interactive-demo) · [Research findings](#three-questions-three-findings) · [Read the illustrated report](writeup_group5.pdf) · [Reproduce the analyses](#reproduce-the-analyses)
+[Try the live demo](https://shelter-outcome-explorer.streamlit.app/) · [Research findings](#three-questions-three-findings) · [Read the illustrated report](writeup_group5.pdf) · [Reproduce the analyses](#reproduce-the-analyses)
 
 ## Three questions, three findings
 
@@ -17,6 +17,8 @@ A completed research project by **Group 5, Hebrew University of Jerusalem**, for
 Raw patterns change after adjustment or validation on new data. The [final report](writeup_group5.pdf) details cohort definitions, uncertainty, errors, and robustness checks. Adoption-delay estimates are associations, not causal effects or changes in expected raw days.
 
 ## Interactive demo
+
+**[Launch the interactive dashboard ↗](https://shelter-outcome-explorer.streamlit.app/)**
 
 Explore the frozen Austin classifier in a **dark-themed Streamlit dashboard**. Start from an example intake profile, adjust the animal and shelter context, inspect four outcome probabilities, and compare two hypothetical profiles side by side. Differences are model responses, **not causal effects**.
 
