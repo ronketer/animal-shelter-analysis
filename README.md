@@ -4,7 +4,7 @@
 
 A completed research project by **Group 5, Hebrew University of Jerusalem**, for *A Needle in a Data Haystack* (67978).
 
-[Read the illustrated report](writeup_group5.pdf) · [Run the demo](#interactive-demo) · [Reproduce the analyses](#reproduce-the-analyses)
+[Explore the Streamlit demo](#interactive-demo) · [Research findings](#three-questions-three-findings) · [Read the illustrated report](writeup_group5.pdf) · [Reproduce the analyses](#reproduce-the-analyses)
 
 ## Three questions, three findings
 
@@ -18,7 +18,9 @@ Raw patterns change after adjustment or validation on new data. The [final repor
 
 ## Interactive demo
 
-Explore the frozen Austin classifier in Streamlit: change species, age, intake circumstances, and shelter context to inspect the four outcome probabilities.
+Explore the frozen Austin classifier in a **dark-themed Streamlit dashboard**. Start from an example intake profile, adjust the animal and shelter context, inspect four outcome probabilities, and compare two hypothetical profiles side by side. Differences are model responses, **not causal effects**.
+
+![Streamlit dashboard showing an animal intake profile and predicted outcome probabilities](figures/demo/dashboard.jpg)
 
 Use **Python 3.13** and [uv](https://docs.astral.sh/uv/). From the repository root:
 
@@ -27,7 +29,9 @@ uv sync --locked
 uv run streamlit run src/demo_app.py
 ```
 
-The included **1.46 MB model** and metadata in [`demo_artifacts/`](demo_artifacts/) support inference with **no raw data, credentials, or retraining**.
+The **frozen model** and metadata in [`demo_artifacts/`](demo_artifacts/) support inference with **no raw data, credentials, or retraining**.
+
+The local app opens at `http://localhost:8501` by default. Its appearance is configured in [`.streamlit/config.toml`](.streamlit/config.toml). The comparison table can be downloaded as CSV.
 
 The demo illustrates historical predictions, not operational shelter decisions. **Other is a pooled class, not a euthanasia probability.** The [artifact exporter](src/export_demo_artifact.py) retrains and overwrites the model; the demo does not need it.
 
@@ -54,6 +58,8 @@ Austin's adjusted 95% intervals are **+119.1% to +133.7%** for Pit Bull-type lab
 
 Sensitivity checks cover species subsets, stay cutoffs, intake-year fixed effects, and nonlinear age. Black coloring reverses from **−2.9% unadjusted** to **+10.2% adjusted**.
 
+![Unadjusted versus adjusted adoption-delay associations for Pit Bull-type labels and black coloring](figures/report/hard_to_adopt_raw_vs_adjusted.png)
+
 **Independent replication.** Refitting the same specification on **9,201 Sonoma adoptions** yields **+64.8%** for Pit Bull-type labels and **+9.1%** for black coloring. This replicates associations rather than testing unchanged Austin coefficients.
 
 ![Adjusted adoption-delay associations estimated separately in Austin and Sonoma, with animal-clustered 95% confidence intervals](figures/report/trait_replication.png)
@@ -65,6 +71,8 @@ Census-geocoded numbered Austin street addresses support ZIP comparisons, hexago
 Traits-only and traits-plus-ZIP logistic models are compared across **five animal-grouped holdouts** using log loss, Brier score, and AUC. Brier score changes only **0.1608 → 0.1604**, reinforcing ZIP's small predictive contribution. After adjustment, dog-count-weighted between-cell variation falls from **6.2 to 4.3 percentage points**.
 
 ![Geographic reunification deviations before and after adjusting for measured dog traits; point size represents dog count](figures/report/neighborhood_raw_vs_adjusted_shrinkage.png)
+
+![Observed-minus-expected stray-dog reunification across Austin after adjusting for measured characteristics](figures/report/neighborhood_adjusted_residual_map.png)
 
 ## Data and reproducibility
 

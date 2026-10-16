@@ -1,0 +1,9 @@
+# Default research-dashboard theme. Project root: .streamlit/config.toml
+[theme]
+base = "dark"
+primaryColor = "#38BDF8"
+backgroundColor = "#0B1220"
+secondaryBackgroundColor = "#142238"
+textColor = "#E8F0F7"
+font = "sans-serif"
+chartCategoricalColors = ["#38BDF8", "#2DD4BF", "#FBBF24", "#A78BFA", "#FB7185"]
