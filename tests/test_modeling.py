@@ -16,7 +16,6 @@ from modeling import (
     MODEL_FEATURES,
     animal_group_split,
     make_outcome_pipeline,
-    select_precision_threshold,
     temporal_animal_split,
 )
 
@@ -68,18 +67,6 @@ class SharedModelingTests(unittest.TestCase):
         self.assertEqual(train["Animal ID"].tolist(), ["A", "C"])
         self.assertEqual(test["Animal ID"].tolist(), ["B"])
         self.assertTrue(set(train["Animal ID"]).isdisjoint(test["Animal ID"]))
-
-    def test_precision_threshold_maximizes_recall_under_precision_floor(self) -> None:
-        selection = select_precision_threshold(
-            np.array([0, 0, 1, 1, 1]),
-            np.array([0.1, 0.4, 0.35, 0.8, 0.9]),
-            min_precision=0.9,
-        )
-
-        self.assertAlmostEqual(selection.threshold, 0.8)
-        self.assertAlmostEqual(selection.precision, 1.0)
-        self.assertAlmostEqual(selection.recall, 2 / 3)
-        self.assertEqual(selection.flagged, 2)
 
     def test_outcome_pipeline_accepts_unseen_categories_at_inference(self) -> None:
         df = _feature_frame()

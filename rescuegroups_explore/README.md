@@ -1,11 +1,16 @@
-# RescueGroups exploration
+# Retained RescueGroups audit utilities
 
-This is an isolated feasibility/audit branch for RescueGroups listings. It is separate
-from the Austin shelter analysis and does not feed the final report.
+This optional listing-text direction was investigated and excluded from the final
+models because pre-adoption versions of descriptions could not be verified.
+The [saved feasibility check](../optional/rescuegroups_feasibility_report.md) supports
+the discussion in the final report.
 
-- `download_available_listings.py` downloads resumable raw listing pages and writes a manifest.
-- `audit_adopted_history.py` samples adopted records and writes feasibility reports about text richness and temporal-leakage risk.
-- Related downloaded snapshots and reports live under `data/rescuegroups_adopted_feasibility/`.
+`tests/test_rescuegroups_audit.py` imports `audit_adopted_history.py`, which in turn
+imports shared request and credential helpers from `download_available_listings.py`.
+Both modules are retained to preserve these offline tests. Tests use synthetic records
+and make no API requests. The utilities are not part of Austin/Sonoma reproduction.
 
-These scripts may require API credentials and network access. Run them only when the
-RescueGroups audit is being updated.
+Executing either script directly can contact RescueGroups and requires a local API key.
+Downloaded records belong under the ignored `data/` directory; credentials must remain
+local. The larger legacy audit is distinct from the smaller saved feasibility check in
+`optional/`.

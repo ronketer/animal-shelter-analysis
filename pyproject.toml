@@ -1,7 +1,7 @@
 [project]
-name = "final"
+name = "animal-shelter-analysis"
 version = "0.1.0"
-description = "Add your description here"
+description = "Animal shelter outcome prediction, adoption-delay associations, and stray-dog reunification"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -14,5 +14,8 @@ dependencies = [
     "plotnine>=0.15.0",
     "geopandas>=1.1.0",
     "altair>=5.5.0",
-    "scikit-learn>=1.5.0",
+    "scikit-learn==1.9.0",
+    "scipy>=1.18.0",
+    "joblib>=1.5.3",
+    "streamlit==1.62.0",
 ]

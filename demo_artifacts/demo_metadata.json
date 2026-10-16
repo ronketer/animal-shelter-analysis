@@ -1,0 +1,13 @@
+{
+  "intakes_7d_default": 218.5,
+  "occupancy_default": 1273.0,
+  "python_version": "3.13.5",
+  "review_precision_target": 0.9,
+  "review_threshold": 0.6900132162888202,
+  "sklearn_version": "1.9.0",
+  "test_macro_f1": 0.5879147331954734,
+  "test_precision": 0.9051774287376382,
+  "test_recall": 0.5429169574319609,
+  "validation_precision": 0.9005891016200295,
+  "validation_recall": 0.5303555941023417
+}
