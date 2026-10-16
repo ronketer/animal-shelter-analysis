@@ -1,4 +1,4 @@
-# Credentials and local environments
+# Local configuration and environments
 .env
 .env.*
 !.env.example
@@ -6,16 +6,27 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 .streamlit/secrets.toml
 
-# Raw data, geocoding caches, API downloads, and derived metrics
+# OS and packaging artifacts
+.DS_Store
+Thumbs.db
+*.egg-info/
+build/
+dist/
+
+# Raw data, API downloads, and derived metrics
 data/
 *.csv
 *.jsonl
 *.jsonl.gz
 rescuegroups_full.json
 
-# Generated outputs: retain only the selected original report PNGs
+# Generated figures: retain only the selected report PNGs
 figures/*
 !figures/report/
 figures/report/*
@@ -23,7 +34,7 @@ figures/report/*
 !figures/report/trait_replication.png
 !figures/report/neighborhood_raw_vs_adjusted_shrinkage.png
 
-# The supplied demo model and final report are intentional exceptions
+# Supplied demo artifacts and final report
 *.joblib
 !demo_artifacts/outcome_model.joblib
 *.pkl
@@ -31,15 +42,3 @@ figures/report/*
 *.pdf
 !writeup_group5.pdf
 *.svg
-
-# Coursework sources, experiments, and temporary products
-tmp/
-milestone/
-tex/
-petfinder_explore/
-*.tex
-*.log
-*.aux
-*.out
-*.fdb_latexmk
-*.fls
