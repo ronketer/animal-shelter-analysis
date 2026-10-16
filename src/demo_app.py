@@ -5,16 +5,26 @@ Run from repository root: uv run streamlit run src/demo_app.py
 from __future__ import annotations
 
 import calendar
-from dataclasses import dataclass
+from time import perf_counter
+
+_run_started = perf_counter()
 
 import altair as alt
 import pandas as pd
 import streamlit as st
+from streamlit.logger import get_logger
 
 from demo_service import load_demo_model, predict_intake
 
+_imports_seconds = perf_counter() - _run_started
+_logger = get_logger(__name__)
+
 st.set_page_config(page_title="Shelter Outcome Explorer", page_icon="🐾", layout="wide",
                    initial_sidebar_state="collapsed")
+
+_initial_session = not st.session_state.get("_initial_timing_logged", False)
+if _initial_session:
+    _logger.info("shelter_demo initial_session imports_complete seconds=%.3f", _imports_seconds)
 
 OUTCOMES = ["Adoption", "Return to Owner", "Transfer", "Other"]
 PRESETS = {
@@ -39,7 +49,12 @@ h1 {letter-spacing: -.035em;}
 
 @st.cache_resource(show_spinner="Loading the saved model…")
 def get_bundle():
-    return load_demo_model()
+    # This runs only on a resource-cache miss, shared across sessions and reruns.
+    started = perf_counter()
+    _logger.info("shelter_demo model_load started")
+    bundle = load_demo_model()
+    _logger.info("shelter_demo model_load complete seconds=%.3f", perf_counter() - started)
+    return bundle
 
 
 def reset_profile(preset: str) -> None:
@@ -116,7 +131,9 @@ def compare_chart(a: pd.Series, b: pd.Series) -> None:
 
 
 try:
+    _bundle_started = perf_counter()
     bundle = get_bundle()
+    _bundle_seconds = perf_counter() - _bundle_started
 except (FileNotFoundError, KeyError, OSError, ValueError) as exc:
     st.error("The frozen demo model or its metadata could not be loaded.")
     st.code("Get-ChildItem .\\demo_artifacts\\")
@@ -158,14 +175,18 @@ with input_col:
                               float(bundle.intakes_7d_default), step=5.0)
 
 row = make_row("profile", occupancy, intakes_7d)
+_inference_started = perf_counter()
 prediction = predict_intake(bundle, row).probability_by_class
+_inference_seconds = perf_counter() - _inference_started
 
 with output_col:
     st.markdown("#### Predicted outcome probabilities")
     st.caption("The model updates automatically as you change the profile.")
     st.metric("Highest probability · " + str(prediction.index[0]),
               f"{prediction.iloc[0]:.1%}")
+    _chart_started = perf_counter()
     chart(prediction)
+    _chart_seconds = perf_counter() - _chart_started
     st.caption("These are estimated probabilities, not certainties. "
                "'Other' pools several rare outcomes, not only euthanasia.")
 
@@ -221,3 +242,11 @@ in the accompanying report.
 - The classifier is not calibrated or validated for real-time shelter decisions.
 """)
 st.caption("Source: What Intake Records Actually Tell You · Problem 1 · Frozen model artifact")
+
+if _initial_session:
+    _logger.info(
+        "shelter_demo initial_session complete total_s=%.3f bundle_s=%.3f "
+        "inference_s=%.3f chart_s=%.3f",
+        perf_counter() - _run_started, _bundle_seconds, _inference_seconds, _chart_seconds,
+    )
+    st.session_state["_initial_timing_logged"] = True
