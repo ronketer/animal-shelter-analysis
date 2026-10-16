@@ -143,11 +143,19 @@ except (FileNotFoundError, KeyError, OSError, ValueError) as exc:
 for field, value in PRESETS["Stray dog"].items():
     st.session_state.setdefault(f"profile_{field}", value)
 
-st.caption("ANIMAL SHELTER ANALYSIS  /  INTERACTIVE RESEARCH DEMO")
+st.caption("ANIMAL SHELTER · DATA EXPLORATION")
+
 st.title("🐾 Shelter Outcome Explorer")
-st.write("Explore how intake-time characteristics relate to an Austin-trained "
-         "classifier's predicted outcomes.")
-st.caption("ℹ️ Research demonstration only — not a shelter decision or animal-care recommendation tool.")
+
+st.write(
+    "Explore how animal intake characteristics relate "
+    "to predicted shelter outcomes."
+)
+
+st.caption(
+    "For exploration only — not intended for "
+    "real-world shelter decisions."
+)
 
 m1, m2, m3 = st.columns(3)
 m1.metric("Held-out macro-F1", f"{bundle.test_macro_f1:.3f}")
