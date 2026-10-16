@@ -116,10 +116,9 @@ Scripts print results and regenerate figures under `figures/report/`, `figures/a
 | `demo_artifacts/` | Frozen classifier and display metadata |
 | `figures/report/` | Selected original report figures, one format each |
 | [writeup_group5.pdf](writeup_group5.pdf) | Final illustrated report, preserved unchanged |
-| `optional/` | Small listing-text feasibility check and saved aggregate evidence cited in the report |
-| `rescuegroups_explore/` | Two legacy audit utilities retained because the offline audit tests import them |
+| [`experiments/rescuegroups/`](experiments/rescuegroups/README.md) | Standalone listing-text feasibility check and saved evidence for excluding this direction |
 
-Petfinder experiments, unrelated API diagnostics/downloads, coursework milestones, LaTeX sources, local environments, and temporary outputs are omitted. Listing text was investigated but excluded: only **92/952 records (9.7%)** had usable text and a valid duration, and pre-adoption versions of descriptions could not be verified. See the [saved feasibility results](optional/rescuegroups_feasibility_report.md). These optional utilities do not feed the final models and need no API access for tests.
+Petfinder experiments, unrelated API diagnostics/downloads, coursework milestones, LaTeX sources, local environments, and temporary outputs are omitted. Listing text was investigated but excluded: only **92/952 records (9.7%)** had usable text and a valid duration, and pre-adoption versions of descriptions could not be verified. See the [saved feasibility results](experiments/rescuegroups/rescuegroups_feasibility_report.md). This standalone experiment does not feed the final models or demo; core tests need no API access.
 
 ## Limits and attribution
 

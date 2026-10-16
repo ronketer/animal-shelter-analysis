@@ -13,6 +13,5 @@ demo artifact, including its final feature schema, scikit-learn compatibility, a
 four-class probability contract.
 
 No raw Austin/Sonoma data, API credentials, network requests, or model training are
-required. The two RescueGroups utility modules remain because the offline audit tests
-import them; that exploration is separate from the completed research models.
-Full analysis reproduction requires the original snapshots described in the root README.
+required. The standalone experiment under `experiments/rescuegroups/` is separate
+from this suite. Full analysis reproduction requires the original snapshots described in the root README.

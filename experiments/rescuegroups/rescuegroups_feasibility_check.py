@@ -1,4 +1,4 @@
-"""Small RescueGroups feasibility check for the final-project writeup.
+"""Standalone RescueGroups listing-text feasibility check.
 
 Purpose
 -------
@@ -13,10 +13,11 @@ It deliberately avoids:
 
 Those were removed so the API request is as simple as possible.
 
-Run from PowerShell:
-    uv run python rescuegroups_feasibility_check.py
+Run from the repository root:
+    uv run python experiments/rescuegroups/rescuegroups_feasibility_check.py
 
-The script prompts for the API key securely and writes:
+The script prompts for the API key securely and writes under
+data/rescuegroups_feasibility/ (the saved historical report is unchanged):
     rescuegroups_feasibility_report.md
     rescuegroups_feasibility_report.json
 """
@@ -47,8 +48,9 @@ PAGES_TO_SAMPLE = 10
 REQUEST_TIMEOUT = 30
 REQUEST_DELAY = 0.35
 
-REPORT_MD = Path("rescuegroups_feasibility_report.md")
-REPORT_JSON = Path("rescuegroups_feasibility_report.json")
+REPORT_DIR = Path(__file__).resolve().parents[2] / "data" / "rescuegroups_feasibility"
+REPORT_MD = REPORT_DIR / "rescuegroups_feasibility_report.md"
+REPORT_JSON = REPORT_DIR / "rescuegroups_feasibility_report.json"
 
 # These attributes are documented in the RescueGroups v5 animal schema.
 FIELDS = [
@@ -379,6 +381,7 @@ def main() -> None:
         ],
     }
 
+    REPORT_DIR.mkdir(parents=True, exist_ok=True)
     REPORT_JSON.write_text(
         json.dumps(report, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
@@ -448,7 +451,7 @@ These are feasibility limitations, not claims that RescueGroups data are general
         "  updated after adoption:         "
         f"{fmt_pct(pct(updated_after_adoption, updated_vs_adopted_comparable))}"
     )
-    print("\nUpload rescuegroups_feasibility_report.md for writeup wording.")
+    print("\nReview the generated aggregate reports before interpreting a new sample.")
 
 
 if __name__ == "__main__":
